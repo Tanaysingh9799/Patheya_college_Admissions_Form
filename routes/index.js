@@ -13,12 +13,12 @@ const app = require('../app');
 router.use(express.static(path.join(__dirname, 'public')));
 adDate = moment().format('YYYY-MM-DD HH:mm:ss')
 
-
+//GET ADMIN PAGE //
 router.get('/admin',(req,res)=>{
     res.sendFile(path.join(__dirname, '../public/stylesheets/admin.html'));
 
 })
-/* GET home page. */
+/* GET LOGIN PAGE */
 router.get('/',(req,res)=>{
   res.sendFile(path.join(__dirname, '../public/stylesheets/done.html'));
 })
@@ -28,7 +28,7 @@ router.get('/register', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../public/stylesheets/index.html'));
 });
 
-
+//GET ALL STUDENTS//
 router.get('/students',(req,res,result)=>{
   connect.query('SELECT * FROM students',(err,rows)=>{
       if(err){
@@ -41,7 +41,7 @@ router.get('/students',(req,res,result)=>{
 })
 
 
-
+//POST STUDENTS DATA//
 router.post("/students",bodyParser.json(),(req,res,)=>{
   let name = req.body.name
   let email =  req.body.email
@@ -64,7 +64,6 @@ if(password === cpassword){
         Name:req.body.name,
         Email:req.body.email,
         Department:req.body.department})
-         //res.send("Admission Completed On : "+ adDate +"  |  "+ "Name :"+req.body.name +"  |  "+ " Email : "+req.body.email +"  |  "+ " Department : "+req.body.department)  //res.render('index',{name : name , email:email , department: department , doa: adDate})
     }
   })
 }
@@ -73,7 +72,7 @@ else{
 }
 })
 
-
+//DELETE STUDENTS BY ID //
 router.delete('/del/:uid',(req,res)=>{
     connect.query('DELETE FROM students WHERE uid =?',[req.params.uid],(err,rows)=>{
       if (err)
@@ -89,7 +88,7 @@ router.delete('/del/:uid',(req,res)=>{
 })
 
 
-
+//GET STUDENTS BY ID//
 router.get('/getbyid/:uid',(req,res)=>{
   connect.query('SELECT * FROM students WHERE uid =?',[req.params.uid],(err,rows)=>{
     try {
@@ -101,7 +100,7 @@ router.get('/getbyid/:uid',(req,res)=>{
     }
   })
 })
-
+//GET STUDENTS BY DEPT//
 router.get('/getbyD/aero',(req,res)=>{
   connect.query((`SELECT * FROM students WHERE department = "Aeronautical Engineering"`),(err,rows)=>{
     if (err) {
@@ -112,7 +111,7 @@ router.get('/getbyD/aero',(req,res)=>{
   })
 })
 
-
+//GET STUDENTS BY DEPT//
 router.get('/getbyD/civil',(req,res)=>{
   connect.query((`SELECT * FROM students WHERE department = "Civil Engineering"`),(err,rows)=>{
     if (err) {
@@ -122,7 +121,7 @@ router.get('/getbyD/civil',(req,res)=>{
     res.send(rows);  
   })
 })
-
+//GET STUDENTS BY DEPT//
 router.get('/getbyD/mech',(req,res)=>{
   connect.query((`SELECT * FROM students WHERE department = "Mechanical Engineering"`),(err,rows)=>{
     if (err) {
@@ -133,7 +132,7 @@ router.get('/getbyD/mech',(req,res)=>{
   })
 })
 
-
+//GET STUDENTS BY DEPT//
 router.get('/getbyD/chem',(req,res)=>{
   connect.query((`SELECT * FROM students WHERE department = "Chemical Engineering"`),(err,rows)=>{
     if (err) {
@@ -143,7 +142,7 @@ router.get('/getbyD/chem',(req,res)=>{
     res.send(rows);  
   })
 })
-
+//GET STUDENTS BY DEPT//
 router.get('/groupby/dept',(req,res,result)=>{
   connect.query('SELECT * FROM students',(err,rows)=>{
       if(err){
@@ -158,6 +157,7 @@ router.get('/groupby/dept',(req,res,result)=>{
   })
 })
 
+//EDIT STUDENTS DATA//
 router.put('/admin/edit/:uid',bodyParser.json(),(req,res)=>{
   let name = req.body.name
   let email =  req.body.email
