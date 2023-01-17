@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>admin</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="./style.css" />
+    <style>body {
+      box-sizing: border-box;
+  }
+  
+  .d-flex input {
+      margin: .9em 0em;
+  }
+  
+  .d-flex button {
+      margin: 1.5em .6em;
+      padding: .3em 2.4em;
+  }
+  
+  .d-flex table {
+      margin: 1em 10em;
+  }
+  
+  table .btnedit {
+      color: lightgreen;
+      cursor: pointer;
+  }
+  
+  table .btndelete {
+      color: tomato;
+      cursor: pointer;
+  }
+  
+  /* messages */
+  .updatemsg,
+  .deletemsg,
+  .insertmsg {
+      position: absolute;
+      top: -40px;
+  }
+  
+  .movedown {
+      animation: slideup 3.4s ease;
+  }
+  
+  @keyframes slideup {
+      50% {
+          top: 0
+      }
+  
+      100% {
+          top: -40px;
+      }
+  }</style>
+</head>
+
+<body>
+  <main>
+    <div class="container text-center">
+      <h1 class="bg-light py-4 text-info">
+        <i class="fas fa-plug"></i> Admin Portal
+      </h1>
+      <div class="d-flex justify-content-center">
+        <form class="w-50">
+          <input type="text" id="uid" class="form-control" autocomplete="off" name = "uid" placeholder="UID" value = "" />
+          <div class="d-flex justify-content-center">
+        
+            <form action="/deleteby/:uid" method="DELETE">
+              <button class="btn btn-primary" id="btn-delete">DELETE</button>
+            </form>
+            <form action="/students" method="GET">
+            <button class="btn btn-primary" id="btn-read">Get All</button>
+          </form>
+          </div>
+          <div class="d-flex justify-content-centre">
+            <form action="/getbyid/:uid" method="GET">
+            <button class="btn btn-primary" id="btn-read">Get</button>
+          </form>
+          </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <form action="" method="UPDATE">
+        <button class="btn btn-warning" id="btn-update">Update</button>
+      </form>
+      </div>
+    </form>
+      
+      <!--  Table -->
+      <div class="d-flex table-data">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">UID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Department</th>
+              <th scope="col">Admited On</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+                        <tr>
+                            <td><students.uid></td>
+                            <td><students.name></td>
+                            <td><students.email></td>
+                            <td><students.phone></td>
+                            <td><students.department></td>
+                        </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="notfound"></div>
+    </div>
+  </main>
+  <!-- Labels -->
+  <div class="w-100 btn btn-warning updatemsg">Data Updated..! Refresh Database To See Result</div>
+  <div class="w-100 btn btn-danger deletemsg">Data Deleted..!</div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+
+  <!-- Include Dexie -->
+  <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+
+  <!-- Custom main file-->
+  <script src="../js/main.js" type="module"></script>
+</body>
+
+</html>
